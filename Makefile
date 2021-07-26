@@ -1,5 +1,5 @@
 PKG_NAME := platformdirs
-URL = https://files.pythonhosted.org/packages/c1/03/1dcc356abdfbe22bec1194852b02ed809c8bdf91e416b26f17f485c62984/platformdirs-2.0.2.tar.gz
+URL = https://files.pythonhosted.org/packages/66/0d/e489482b5dc9530007a7ec3a3ce4308c3b0c802bd9bdda1da38202315f11/platformdirs-2.1.0.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
