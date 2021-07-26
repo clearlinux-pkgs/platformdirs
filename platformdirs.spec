@@ -4,18 +4,21 @@
 #
 Name     : platformdirs
 Version  : 2.1.0
-Release  : 4
+Release  : 5
 URL      : https://files.pythonhosted.org/packages/66/0d/e489482b5dc9530007a7ec3a3ce4308c3b0c802bd9bdda1da38202315f11/platformdirs-2.1.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/66/0d/e489482b5dc9530007a7ec3a3ce4308c3b0c802bd9bdda1da38202315f11/platformdirs-2.1.0.tar.gz
 Summary  : A small Python module for determining appropriate platform-specific dirs, e.g. a "user data dir".
 Group    : Development/Tools
 License  : MIT
+Requires: platformdirs-license = %{version}-%{release}
 Requires: platformdirs-python = %{version}-%{release}
 Requires: platformdirs-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
 BuildRequires : pluggy
 BuildRequires : py-python
 BuildRequires : pytest
+BuildRequires : setuptools
+BuildRequires : setuptools_scm
 BuildRequires : tox
 BuildRequires : virtualenv
 
@@ -24,6 +27,14 @@ the problem
 ===========
 .. image:: https://github.com/platformdirs/platformdirs/workflows/Test/badge.svg
 :target: https://github.com/platformdirs/platformdirs/actions?query=workflow%3ATest
+
+%package license
+Summary: license components for the platformdirs package.
+Group: Default
+
+%description license
+license components for the platformdirs package.
+
 
 %package python
 Summary: python components for the platformdirs package.
@@ -53,7 +64,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1627314907
+export SOURCE_DATE_EPOCH=1627317436
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -68,6 +79,8 @@ python3 setup.py build
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/platformdirs
+cp %{_builddir}/platformdirs-2.1.0/LICENSE.txt %{buildroot}/usr/share/package-licenses/platformdirs/1a628675f3f38f1d4715ebd772a8160a0ea94dd4
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -75,6 +88,10 @@ echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/platformdirs/1a628675f3f38f1d4715ebd772a8160a0ea94dd4
 
 %files python
 %defattr(-,root,root,-)
